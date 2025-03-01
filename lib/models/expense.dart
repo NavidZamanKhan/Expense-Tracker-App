@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-final formatter = DateFormat.yMMMMEEEEd(); // 2021-09-30 -> September 30, 2021
+final formatter = DateFormat.yMMMMEEEEd();
 
 const uuid = Uuid();
 
