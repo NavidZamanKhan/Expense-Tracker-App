@@ -10,7 +10,7 @@ class ExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: BouncingScrollPhysics(),
+      // physics: const BouncingScrollPhysics(),
       itemCount: expenses.length,
       itemBuilder: (ctx, index) => ExpensesItem(expenses[index]),
     );
