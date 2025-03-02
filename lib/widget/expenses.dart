@@ -1,5 +1,6 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widget/expenses_list/expenses_list.dart';
+import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,6 +41,13 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpenseForm() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const NewExpense(),
+    );
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -53,8 +61,13 @@ class _ExpensesState extends State<Expenses> {
             ),
           ),
         ),
-        backgroundColor: Colors.blueAccent,
-        actions: [IconButton(icon: const Icon(Icons.add), onPressed: () {})],
+        backgroundColor: Colors.orangeAccent,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add, color: Colors.black),
+            onPressed: _openAddExpenseForm,
+          ),
+        ],
       ),
       body: Column(
         children: [
