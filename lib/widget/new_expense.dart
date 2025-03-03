@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:expense_tracker/models/expense.dart';
+
+final formatter = DateFormat.yMMMd();
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
@@ -11,11 +15,13 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.food;
 
-  void _presentDatePicker() {
+  void _presentDatePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(now.year - 5, now.month, now.day);
-    showDatePicker(
+    final firstDate = DateTime(now.year - 25, now.month, now.day);
+    final pickedDate = await showDatePicker(
       context: context,
       firstDate: firstDate,
       lastDate: now,
@@ -28,12 +34,21 @@ class _NewExpenseState extends State<NewExpense> {
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
+            datePickerTheme: DatePickerThemeData(
+              headerBackgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.white,
+            ),
           ),
           child: child!,
         );
       },
     );
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
+
+  void _submitExpenseData() {}
 
   @override
   void dispose() {
@@ -78,7 +93,12 @@ class _NewExpenseState extends State<NewExpense> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("Selected Date"),
+                    Text(
+                      _selectedDate == null
+                          ? "No date selected"
+                          : formatter.format(_selectedDate!),
+                      style: const TextStyle(color: Colors.black),
+                    ),
                     IconButton(
                       onPressed: _presentDatePicker,
                       icon: const Icon(Icons.calendar_month_outlined),
@@ -88,7 +108,31 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
+          const SizedBox(height: 16),
           Row(
+            children: [
+              DropdownButton(
+                value: _selectedCategory,
+                items:
+                    Category.values
+                        .map(
+                          (category) => DropdownMenuItem(
+                            value: category,
+                            child: Text(category.name.toUpperCase()),
+                          ),
+                        )
+                        .toList(),
+                onChanged:
+                    (value) => setState(() {
+                      if (value == null) return;
+                      _selectedCategory = value;
+                    }),
+              ),
+            ],
+          ),
+          Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
                 onPressed: () {
@@ -101,8 +145,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               FilledButton(
                 onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.text);
+                  _submitExpenseData();
                 },
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.orangeAccent,
