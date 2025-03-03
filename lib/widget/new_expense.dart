@@ -20,6 +20,18 @@ class _NewExpenseState extends State<NewExpense> {
       firstDate: firstDate,
       lastDate: now,
       initialDate: now,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Colors.orangeAccent,
+              onPrimary: Colors.white,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
   }
 
@@ -82,14 +94,23 @@ class _NewExpenseState extends State<NewExpense> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("Cancel"),
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-              ElevatedButton(
+              FilledButton(
                 onPressed: () {
                   print(_titleController.text);
                   print(_amountController.text);
                 },
-                child: const Text("Add Expense"),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                ),
+                child: const Text(
+                  "Add Expense",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),
