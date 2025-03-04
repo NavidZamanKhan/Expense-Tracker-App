@@ -1,3 +1,4 @@
+import 'package:expense_tracker/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_tracker/models/expense.dart';
@@ -30,12 +31,12 @@ class _NewExpenseState extends State<NewExpense> {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: ColorScheme.light(
-              primary: Colors.orangeAccent,
+              primary: appColor,
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
             datePickerTheme: DatePickerThemeData(
-              headerBackgroundColor: Colors.orangeAccent,
+              headerBackgroundColor: appColor,
               backgroundColor: Colors.white,
             ),
           ),
@@ -48,7 +49,9 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void _submitExpenseData() {}
+  void _submitExpenseData() {
+    if (_titleController.text.trim().isEmpty) {}
+  }
 
   @override
   void dispose() {
@@ -130,7 +133,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -147,9 +150,7 @@ class _NewExpenseState extends State<NewExpense> {
                 onPressed: () {
                   _submitExpenseData();
                 },
-                style: FilledButton.styleFrom(
-                  backgroundColor: Colors.orangeAccent,
-                ),
+                style: FilledButton.styleFrom(backgroundColor: appColor),
                 child: const Text(
                   "Add Expense",
                   style: TextStyle(color: Colors.black),

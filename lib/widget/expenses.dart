@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/theme/theme_color.dart';
 import 'package:expense_tracker/widget/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _ExpensesState extends State<Expenses> {
             ),
           ),
         ),
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: appColor,
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Colors.black),
