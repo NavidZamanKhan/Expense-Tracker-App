@@ -15,37 +15,18 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [
-    Expense(
-      title: "Flutter Course",
-      amount: 19.99,
-      date: DateTime.now(),
-      category: Category.work,
-    ),
-    Expense(
-      title: "Groceries",
-      amount: 45.99,
-      date: DateTime.now(),
-      category: Category.food,
-    ),
-    Expense(
-      title: "New Shoes",
-      amount: 89.99,
-      date: DateTime.now(),
-      category: Category.leisure,
-    ),
-    Expense(
-      title: "Flight to Paris",
-      amount: 299.99,
-      date: DateTime.now(),
-      category: Category.travel,
-    ),
-  ];
+  final List<Expense> _registeredExpenses = [];
+
+  void _addNewExpense(Expense newExpense) {
+    setState(() {
+      _registeredExpenses.add(newExpense);
+    });
+  }
 
   void _openAddExpenseForm() {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => const NewExpense(),
+      builder: (ctx) => NewExpense(onAddExpense: _addNewExpense),
     );
   }
 
