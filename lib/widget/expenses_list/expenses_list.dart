@@ -25,7 +25,17 @@ class ExpensesList extends StatelessWidget {
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 20),
               margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
-              child: const Icon(Icons.delete, color: Colors.black, size: 40),
+              child: Row(
+                children: [
+                  SizedBox(width: 20),
+                  Text(
+                    "Deleted",
+                    style: TextStyle(color: Colors.black, fontSize: 15),
+                  ),
+                  Spacer(),
+                  const Icon(Icons.delete, color: Colors.black, size: 40),
+                ],
+              ),
             ),
             child: ExpensesItem(expenses[index]),
           ),
