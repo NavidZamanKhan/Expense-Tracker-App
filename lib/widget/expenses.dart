@@ -3,7 +3,6 @@ import 'package:expense_tracker/theme/theme_color.dart';
 import 'package:expense_tracker/widget/expenses_list/expenses_list.dart';
 import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -93,12 +92,7 @@ class _ExpensesState extends State<Expenses> {
       appBar: AppBar(
         title: Text(
           "Expenses Tracker",
-          style: GoogleFonts.lato(
-            textStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         backgroundColor: appColor,
         actions: [
