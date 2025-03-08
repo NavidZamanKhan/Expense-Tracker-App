@@ -22,6 +22,7 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? _selectedDate;
   Category _selectedCategory = Category.food;
 
+  ///_presentDatePicker
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 25, now.month, now.day);
@@ -101,100 +102,141 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
+      padding: EdgeInsets.fromLTRB(8, 48, 8, 16),
       child: Column(
         children: [
-          TextField(
-            maxLength: 40,
-            controller: _titleController,
-            keyboardType: TextInputType.text,
-            decoration: const InputDecoration(
-              labelText: "Title",
-              labelStyle: TextStyle(color: Colors.black),
-              hintText: "Enter the title of the expense",
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 2,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: Text(
+                          "Add New Expense",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  ///TextFields
+                  TextField(
+                    maxLength: 40,
+                    controller: _titleController,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      labelText: "Title",
+                      labelStyle: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        ///TextField
+                        child: TextField(
+                          controller: _amountController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            labelText: "Amount",
+                            labelStyle: TextStyle(color: Colors.black),
+                            prefixText: "\$",
+                            hintText: "Enter the amount of the expense",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      ///DropdownButton
+                      DropdownButton(
+                        value: _selectedCategory,
+                        items:
+                            Category.values
+                                .map(
+                                  (category) => DropdownMenuItem(
+                                    value: category,
+                                    child: Text(category.name.toUpperCase()),
+                                  ),
+                                )
+                                .toList(),
+                        onChanged:
+                            (value) => setState(() {
+                              if (value == null) return;
+                              _selectedCategory = value;
+                            }),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              _selectedDate == null
+                                  ? "No date selected"
+                                  : formatter.format(_selectedDate!),
+                              style: const TextStyle(color: Colors.black),
+                            ),
+
+                            ///IconButton
+                            IconButton(
+                              onPressed: _presentDatePicker,
+                              icon: const Icon(Icons.calendar_month_rounded),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: "Amount",
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixText: "\$",
-                    hintText: "Enter the amount of the expense",
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      _selectedDate == null
-                          ? "No date selected"
-                          : formatter.format(_selectedDate!),
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                    IconButton(
-                      onPressed: _presentDatePicker,
-                      icon: const Icon(Icons.calendar_month_outlined),
-                    ),
-                  ],
+                FilledButton(
+                  onPressed: () {
+                    _submitExpenseData();
+                  },
+                  style: FilledButton.styleFrom(backgroundColor: appColor),
+                  child: const Text(
+                    "Add Expense",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              DropdownButton(
-                value: _selectedCategory,
-                items:
-                    Category.values
-                        .map(
-                          (category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category.name.toUpperCase()),
-                          ),
-                        )
-                        .toList(),
-                onChanged:
-                    (value) => setState(() {
-                      if (value == null) return;
-                      _selectedCategory = value;
-                    }),
-              ),
-            ],
-          ),
-          Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  "Cancel",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              FilledButton(
-                onPressed: () {
-                  _submitExpenseData();
-                },
-                style: FilledButton.styleFrom(backgroundColor: appColor),
-                child: const Text(
-                  "Add Expense",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

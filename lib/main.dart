@@ -68,7 +68,7 @@ void main() {
         ///cardTheme
         cardTheme: const CardTheme().copyWith(
           color: kColorScheme.surfaceContainerLow,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -99,6 +99,14 @@ void main() {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
+          ),
+        ),
+
+        ///inputDecorationTheme
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            gapPadding: 4,
           ),
         ),
       ),
