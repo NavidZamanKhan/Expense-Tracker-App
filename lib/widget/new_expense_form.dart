@@ -102,14 +102,14 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(8, 48, 8, 16),
+      padding: EdgeInsets.fromLTRB(8, 48, 8, 32),
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white),
+              border: Border.all(color: const Color.fromARGB(0, 255, 255, 255)),
               borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
+              color: const Color.fromARGB(255, 255, 255, 255),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
@@ -183,7 +183,7 @@ class _NewExpenseState extends State<NewExpense> {
                               _selectedCategory = value;
                             }),
                       ),
-                      const SizedBox(width: 12),
+
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -195,8 +195,6 @@ class _NewExpenseState extends State<NewExpense> {
                                   : formatter.format(_selectedDate!),
                               style: const TextStyle(color: Colors.black),
                             ),
-
-                            ///IconButton
                             IconButton(
                               onPressed: _presentDatePicker,
                               icon: const Icon(Icons.calendar_month_rounded),
@@ -206,6 +204,7 @@ class _NewExpenseState extends State<NewExpense> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 8),
                 ],
               ),
             ),

@@ -57,7 +57,17 @@ void main() {
             color: Colors.white,
           ),
         ),
+
+        ///inputDecorationTheme
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            gapPadding: 4,
+          ),
+        ),
       ),
+
+      ///theme
       theme: ThemeData().copyWith(
         ///colorScheme
         colorScheme: kColorScheme,
@@ -79,6 +89,8 @@ void main() {
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             elevation: 2,
+            backgroundColor: kColorScheme.primaryContainer,
+            foregroundColor: kColorScheme.onPrimaryContainer,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -110,7 +122,7 @@ void main() {
           ),
         ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       home: Expenses(),
     ),
   );

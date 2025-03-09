@@ -6,80 +6,15 @@ final formatter = DateFormat.yMMMMEEEEd();
 
 const uuid = Uuid();
 
-enum Category {
-  beverages,
-  bills,
-  childcare,
-  clothing,
-  dining,
-  donations,
-  education,
-  electronics,
-  entertainment,
-  fitness,
-  food,
-  gifts,
-  groceries,
-  health,
-  hobbies,
-  insurance,
-  investments,
-  laundry,
-  leisure,
-  maintenance,
-  medical,
-  mortgage,
-  personalCare,
-  pets,
-  phone,
-  rent,
-  savings,
-  shopping,
-  software,
-  subscriptions,
-  taxes,
-  transportation,
-  travel,
-  utilities,
-  work,
-}
+enum Category { food, travel, leisure, work, shopping, healthcare }
 
 final categoryIcons = {
-  Category.beverages: Icons.local_drink,
-  Category.bills: Icons.receipt,
-  Category.childcare: Icons.child_care,
-  Category.clothing: Icons.checkroom,
-  Category.dining: Icons.restaurant,
-  Category.donations: Icons.favorite,
-  Category.education: Icons.school,
-  Category.electronics: Icons.electrical_services,
-  Category.entertainment: Icons.movie,
-  Category.fitness: Icons.fitness_center,
   Category.food: Icons.fastfood,
-  Category.gifts: Icons.card_giftcard,
-  Category.groceries: Icons.shopping_basket,
-  Category.health: Icons.local_hospital,
-  Category.hobbies: Icons.palette,
-  Category.insurance: Icons.security,
-  Category.investments: Icons.trending_up,
-  Category.laundry: Icons.local_laundry_service,
-  Category.leisure: Icons.sports_soccer_rounded,
-  Category.maintenance: Icons.build,
-  Category.medical: Icons.medical_services,
-  Category.mortgage: Icons.house,
-  Category.personalCare: Icons.face,
-  Category.pets: Icons.pets,
-  Category.phone: Icons.phone,
-  Category.rent: Icons.home_filled,
-  Category.savings: Icons.account_balance,
-  Category.shopping: Icons.shopping_cart,
-  Category.software: Icons.computer,
-  Category.subscriptions: Icons.subscriptions,
-  Category.taxes: Icons.attach_money,
-  Category.transportation: Icons.directions_bus,
   Category.travel: Icons.flight,
-  Category.utilities: Icons.lightbulb,
+  Category.leisure: Icons.sports_soccer_rounded,
   Category.work: Icons.work,
+  Category.shopping: Icons.shopping_cart,
+  Category.healthcare: Icons.local_hospital,
 };
 
 class Expense {
@@ -99,4 +34,24 @@ class Expense {
     required this.date,
     required this.category,
   }) : id = uuid.v4();
+}
+
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
+
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+    : expenses =
+          allExpenses.where((expense) => expense.category == category).toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
+  }
 }

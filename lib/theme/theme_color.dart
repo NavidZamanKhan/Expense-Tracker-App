@@ -1,4 +1,3 @@
 import 'package:flutter/material.dart';
 
-final appColor = Colors.orangeAccent;
-final errorColor = Colors.red;
+final appColor = const Color.fromRGBO(255, 171, 64, 1);
