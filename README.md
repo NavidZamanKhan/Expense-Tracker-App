@@ -10,12 +10,6 @@ An Expense Tracker app built with Flutter to help you manage and track your expe
 - Visualize expenses with a chart.
 - Responsive UI with a modern design.
 
-## Screenshots
-
-![Screenshot 1](screenshots\screenshot_1.jpg)
-![Screenshot 2](screenshots\screenshot_2.jpg)
-![Screenshot 3](screenshots\screenshot_3.jpg)
-
 ## Getting Started
 
 ### Prerequisites
@@ -51,7 +45,6 @@ flutter run
 ```
 
 ## Project Structure
-```
 ```
 expense_tracker/
 ├── android/                # Android-specific files
