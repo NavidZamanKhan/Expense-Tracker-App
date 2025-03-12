@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:expense_tracker/theme/theme_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_tracker/models/expense.dart';
@@ -58,17 +61,8 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  Future<void> _submitExpenseData() async {
-    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-    if (isKeyboardOpen) {
-      FocusScope.of(context).unfocus();
-      await Future.delayed(const Duration(milliseconds: 200));
-    }
-    final enteredAmount = double.tryParse(_amountController.text);
-    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
-    if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
-        _selectedDate == null) {
+  void _showDialog() {
+    if (Platform.isAndroid) {
       showDialog(
         context: context,
         builder:
@@ -89,7 +83,38 @@ class _NewExpenseState extends State<NewExpense> {
               ],
             ),
       );
-      return;
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder:
+            (ctx) => CupertinoAlertDialog(
+              title: const Text("Invalid Input"),
+              content: const Text("Please enter valid title, amount and date."),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Okay"),
+                ),
+              ],
+            ),
+      );
+    }
+  }
+
+  Future<void> _submitExpenseData() async {
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+    if (isKeyboardOpen) {
+      FocusScope.of(context).unfocus();
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      return _showDialog();
     }
     widget.onAddExpense(
       Expense(
