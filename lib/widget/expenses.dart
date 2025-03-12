@@ -35,12 +35,6 @@ class _ExpensesState extends State<Expenses> {
       category: Category.travel,
     ),
     Expense(
-      title: "Coffee",
-      amount: 5.0,
-      date: DateTime.now(),
-      category: Category.food,
-    ),
-    Expense(
       title: "Banking Fee",
       amount: 45.0,
       date: DateTime.now(),
@@ -51,6 +45,12 @@ class _ExpensesState extends State<Expenses> {
       amount: 60.0,
       date: DateTime.now(),
       category: Category.healthcare,
+    ),
+    Expense(
+      title: "Movie Night",
+      amount: 30.0,
+      date: DateTime.now(),
+      category: Category.leisure,
     ),
   ];
 
