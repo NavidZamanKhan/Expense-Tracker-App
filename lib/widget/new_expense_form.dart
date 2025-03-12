@@ -203,14 +203,17 @@ class _NewExpenseState extends State<NewExpense> {
                           children: [
                             Expanded(
                               ///TextField
-                              child: TextField(
-                                controller: _amountController,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  labelText: "Amount",
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  prefixText: "\$",
-                                  hintText: "Enter the amount of the expense",
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: TextField(
+                                  controller: _amountController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration(
+                                    labelText: "Amount",
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    prefixText: "\$",
+                                    hintText: "Enter the amount of the expense",
+                                  ),
                                 ),
                               ),
                             ),
