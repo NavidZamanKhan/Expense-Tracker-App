@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:expense_tracker/widget/expenses.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +10,11 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]).then((fn) {
   runApp(
     MaterialApp(
       darkTheme: ThemeData.dark().copyWith(
@@ -78,7 +84,7 @@ void main() {
         ///cardTheme
         cardTheme: const CardTheme().copyWith(
           color: kColorScheme.surfaceContainerLow,
-          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          margin: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 8),
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -126,4 +132,5 @@ void main() {
       home: Expenses(),
     ),
   );
+  // });
 }
